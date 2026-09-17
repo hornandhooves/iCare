@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #208aef;
+  --color-primary-deep: #0b5fa8;
+  --color-tint-wash: #e7f1fd;
+
+  --color-text: #101828;
+  --color-text-secondary: #5a6472;
+  --color-text-tertiary: #7b8494;
+  --color-text-disabled: #a3adbb;
+
+  --color-surface: #ffffff;
+  --color-canvas: #f5f7fa;
+  --color-field: #f0f0f3;
+
+  --color-border: #e0e1e6;
+  --color-hairline: #eef2f7;
+  --color-border-canvas: #d7e2f0;
+
+  --color-danger: #d92d20;
+  --color-danger-wash: #fef3f2;
+  --color-warning: #b54708;
+  --color-warning-wash: #fffaeb;
+  --color-success: #067647;
+  --color-success-wash: #ecfdf3;
+}
+
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-primary-deep: var(--color-primary-deep);
+  --color-tint-wash: var(--color-tint-wash);
+
+  --color-text: var(--color-text);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
+  --color-text-disabled: var(--color-text-disabled);
+
+  --color-surface: var(--color-surface);
+  --color-canvas: var(--color-canvas);
+  --color-field: var(--color-field);
+
+  --color-border: var(--color-border);
+  --color-hairline: var(--color-hairline);
+  --color-border-canvas: var(--color-border-canvas);
+
+  --color-danger: var(--color-danger);
+  --color-danger-wash: var(--color-danger-wash);
+  --color-warning: var(--color-warning);
+  --color-warning-wash: var(--color-warning-wash);
+  --color-success: var(--color-success);
+  --color-success-wash: var(--color-success-wash);
+
+  --font-sans: var(--font-spline-sans);
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}

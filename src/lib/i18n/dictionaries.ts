@@ -32,6 +32,36 @@ const dictionaries = {
       haveInvitation: "Tengo una invitación",
       forgotPassword: "Olvidé mi contraseña",
       error: "Correo o contraseña incorrectos.",
+      newBusiness: "¿Negocio nuevo?",
+      createAccount: "Crea tu cuenta",
+    },
+    signup: {
+      eyebrow: "iCare · Negocio nuevo",
+      tabs: {
+        owner: "Dueño",
+        recepcion: "Recepción",
+        practicante: "Practicante",
+        paciente: "Paciente",
+      },
+      owner: {
+        heading: "Crea tu cuenta",
+        subtext: "Te estás registrando como dueño del negocio. Podrás invitar a tu equipo en cuanto el negocio exista.",
+        email: "Correo",
+        password: "Contraseña",
+        submit: "Continuar",
+        error: "No se pudo crear la cuenta. Intenta con otro correo.",
+        rateLimited: "Se enviaron demasiados correos de confirmación en poco tiempo. Espera unos minutos e intenta de nuevo.",
+        checkEmail: "Revisa tu correo para confirmar la cuenta antes de entrar.",
+      },
+      staff: {
+        heading: "Necesitas una invitación",
+        body: "El acceso de recepción y practicantes se otorga por invitación del dueño del negocio, no por registro abierto. Pide a tu dueño que te invite desde Equipo.",
+      },
+      patient: {
+        heading: "Los pacientes no se registran aquí",
+        body: "Tu clínica te escribe por WhatsApp. Ahí puedes agendar, ver tu expediente y decidir qué comparte cada negocio.",
+      },
+      backToLogin: "¿Ya tienes cuenta? Entra",
     },
     onboarding: {
       step1: {
@@ -127,6 +157,14 @@ const dictionaries = {
         riesgo_no_show: "Riesgo de no-show",
         cancelada: "Cancelada",
       },
+      // Verb form for the row's primary action button — keyed by the status
+      // it moves the appointment to, since the button reads as an action
+      // ("Confirmar"), not the resulting state ("Confirmada").
+      actions: {
+        confirmada: "Confirmar",
+        en_consulta: "Iniciar",
+        completada: "Completar",
+      },
     },
     clientes: {
       title: "Clientes",
@@ -194,6 +232,36 @@ const dictionaries = {
       haveInvitation: "I have an invitation",
       forgotPassword: "Forgot my password",
       error: "Incorrect email or password.",
+      newBusiness: "New business?",
+      createAccount: "Create your account",
+    },
+    signup: {
+      eyebrow: "iCare · New business",
+      tabs: {
+        owner: "Owner",
+        recepcion: "Reception",
+        practicante: "Practitioner",
+        paciente: "Patient",
+      },
+      owner: {
+        heading: "Create your account",
+        subtext: "You are setting up as the business owner. You can invite your team once the business exists.",
+        email: "Email",
+        password: "Password",
+        submit: "Continue",
+        error: "Could not create the account. Try a different email.",
+        rateLimited: "Too many confirmation emails were sent in a short time. Wait a few minutes and try again.",
+        checkEmail: "Check your email to confirm the account before signing in.",
+      },
+      staff: {
+        heading: "You need an invitation",
+        body: "Reception and practitioner access is granted by the business owner's invitation, not open sign-up. Ask your owner to invite you from Team.",
+      },
+      patient: {
+        heading: "Patients don't sign up here",
+        body: "Your clinic writes to you on WhatsApp. That's where you book, see your record, and decide what each business can see.",
+      },
+      backToLogin: "Already have an account? Sign in",
     },
     onboarding: {
       step1: {
@@ -287,6 +355,11 @@ const dictionaries = {
         completada: "Completed",
         riesgo_no_show: "No-show risk",
         cancelada: "Cancelled",
+      },
+      actions: {
+        confirmada: "Confirm",
+        en_consulta: "Start",
+        completada: "Complete",
       },
     },
     clientes: {

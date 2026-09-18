@@ -31,7 +31,7 @@ export function LoginForm({ dict }: { dict: Dictionary }) {
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
       <div>
-        <label className="mb-1.5 block text-xs font-bold text-text-secondary" htmlFor="email">
+        <label className="sr-only" htmlFor="email">
           {dict.login.email}
         </label>
         <input
@@ -46,7 +46,7 @@ export function LoginForm({ dict }: { dict: Dictionary }) {
         />
       </div>
       <div>
-        <label className="mb-1.5 block text-xs font-bold text-text-secondary" htmlFor="password">
+        <label className="sr-only" htmlFor="password">
           {dict.login.password}
         </label>
         <input
@@ -56,6 +56,7 @@ export function LoginForm({ dict }: { dict: Dictionary }) {
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder={dict.login.password}
           className="h-11 w-full rounded-xl border border-border bg-field px-3.5 text-sm text-text outline-none focus:border-primary"
         />
       </div>
@@ -63,7 +64,7 @@ export function LoginForm({ dict }: { dict: Dictionary }) {
       <Button type="submit" disabled={submitting} className="w-full">
         {dict.login.submit}
       </Button>
-      <div className="flex items-center justify-between text-xs">
+      <div className="flex items-center justify-center gap-4 text-xs">
         <a href="#" className="font-semibold text-primary-deep hover:underline">
           {dict.login.haveInvitation}
         </a>

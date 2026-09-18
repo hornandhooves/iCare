@@ -19,8 +19,8 @@ export function ExpedienteTabs({
     <button
       type="button"
       onClick={() => setTab(key)}
-      className={`rounded-full px-4 py-1.5 text-xs font-bold ${
-        tab === key ? "bg-primary text-white" : "bg-field text-text-secondary"
+      className={`rounded-full px-4 py-1.5 text-xs font-bold transition-colors ${
+        tab === key ? "bg-primary text-white" : "text-text-secondary hover:bg-field"
       }`}
     >
       {label}
@@ -29,7 +29,7 @@ export function ExpedienteTabs({
 
   return (
     <div>
-      <div className="mb-3 flex gap-1.5">
+      <div className="mb-3 flex gap-1">
         {tabButton("notas", dict.expediente.tabs.notas)}
         {tabButton("labs", dict.expediente.tabs.labs)}
       </div>
@@ -40,14 +40,30 @@ export function ExpedienteTabs({
           dict={dict}
           empty={dict.expediente.noNotes}
         >
-          {data.notes.map((n) => (
-            <Card key={n.id} className="mb-2">
-              <div className="mb-1 text-xs font-bold text-text-tertiary">
-                {n.staffName} · {n.signedAt ? new Date(n.signedAt).toLocaleDateString() : ""}
-              </div>
-              <p className="text-sm text-text">{n.body}</p>
-            </Card>
-          ))}
+          {data.notes.length > 0 && (
+            <div className="overflow-hidden rounded-2xl border border-hairline bg-surface shadow-[0_1px_2px_rgba(16,24,40,.08)]">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-[10.5px] font-bold uppercase tracking-wider text-text-disabled">
+                    <th className="px-5 pb-2 pt-4">Fecha</th>
+                    <th className="px-5 pb-2 pt-4">Autor</th>
+                    <th className="px-5 pb-2 pt-4">Nota</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.notes.map((n) => (
+                    <tr key={n.id} className="border-t border-hairline">
+                      <td className="whitespace-nowrap px-5 py-3 font-bold text-text">
+                        {n.signedAt ? new Date(n.signedAt).toLocaleDateString() : "—"}
+                      </td>
+                      <td className="whitespace-nowrap px-5 py-3 text-text-secondary">{n.staffName}</td>
+                      <td className="px-5 py-3 text-text-secondary">{n.body}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </CategorySection>
       )}
 
@@ -108,7 +124,7 @@ function CategorySection({
   // entirely — categoryVisibility can still say 'sealed', but there is
   // nothing granted to render, so it falls through to the empty state,
   // indistinguishable from a category that's simply empty.
-  const hasChildren = Array.isArray(children) ? children.length > 0 : Boolean(children);
+  const hasChildren = Array.isArray(children) ? children.some(Boolean) : Boolean(children);
   if (!hasChildren) return <p className="text-sm text-text-tertiary">{empty}</p>;
   return <>{children}</>;
 }

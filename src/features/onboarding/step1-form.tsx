@@ -6,7 +6,7 @@ import { stepOfLabel, type Dictionary, type Locale } from "@/lib/i18n/dictionari
 
 export function Step1Form({ dict, locale }: { dict: Dictionary; locale: Locale }) {
   return (
-    <div className="w-full max-w-[460px] rounded-2xl border border-hairline bg-surface p-8 shadow-[0_1px_3px_rgba(16,24,40,.10)]">
+    <div className="w-full max-w-115 rounded-2xl border border-hairline bg-surface p-8 shadow-[0_1px_3px_rgba(16,24,40,.10)]">
       <OnboardingProgress step={1} label={stepOfLabel(locale, 1, 3)} />
       <h1 className="mb-1.5 text-2xl font-bold text-text">{dict.onboarding.step1.heading}</h1>
       <p className="mb-6 text-sm text-text-secondary">{dict.onboarding.step1.subtext}</p>
@@ -24,9 +24,7 @@ export function Step1Form({ dict, locale }: { dict: Dictionary; locale: Locale }
             className="h-11 w-full rounded-xl border border-border bg-field px-3.5 text-sm text-text outline-none focus:border-primary"
           />
         </div>
-        <Button type="submit" className="w-full">
-          {dict.common.continue}
-        </Button>
+        <Button type="submit">{dict.common.continue}</Button>
       </form>
     </div>
   );

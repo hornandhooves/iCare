@@ -32,7 +32,7 @@ export async function getStaffForBranch(supabase: SupabaseClient<Database>, bran
 const PALETTE = ["#208aef", "#5aa9ea", "#7fc0ff", "#9fb2c9"];
 export function colorForStaff(staffId: string, allStaffIds: string[]): string {
   const idx = allStaffIds.indexOf(staffId);
-  return PALETTE[idx % PALETTE.length];
+  return PALETTE[idx === -1 ? 0 : idx % PALETTE.length];
 }
 
 export async function getAgendaRows(

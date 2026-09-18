@@ -28,15 +28,29 @@ export default async function ExpedientePage({ params }: { params: Promise<{ id:
 
   const medsVisibility = data.categoryVisibility.medicamentos;
 
+  const initials = data.patient.name
+    .split(" ")
+    .map((p) => p[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+  const lastVisit = data.visits[0];
+
   return (
     <div className="mx-auto flex max-w-5xl gap-6 p-6">
       <div className="min-w-0 flex-1">
-        <div className="mb-4 flex items-baseline gap-3">
-          <h1 className="text-2xl font-bold text-text">{data.patient.name}</h1>
-          <span className="text-sm text-text-tertiary">
-            {data.patient.age ? `${data.patient.age} · ` : ""}
-            {data.patient.folio}
-          </span>
+        <div className="mb-4 flex items-center gap-3">
+          <div className="grid h-12 w-12 flex-none place-items-center rounded-full bg-primary text-sm font-bold text-white">
+            {initials}
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-text">{data.patient.name}</h1>
+            <p className="text-xs text-text-tertiary">
+              {data.patient.age ? `${data.patient.age} años · ` : ""}
+              {data.patient.folio}
+              {lastVisit ? ` · ${new Date(lastVisit.startAt).toLocaleDateString()}` : ""}
+            </p>
+          </div>
         </div>
 
         {!data.hasClinicalAccess && (
@@ -44,8 +58,8 @@ export default async function ExpedientePage({ params }: { params: Promise<{ id:
         )}
 
         {data.criticalFields.length > 0 && (
-          <Card className="mb-4 border-danger/30 bg-danger-wash">
-            <div className="mb-1 text-[10.5px] font-bold uppercase tracking-wider text-danger">
+          <Card className="mb-4 bg-warning-wash">
+            <div className="mb-1 text-[10.5px] font-bold uppercase tracking-wider text-warning">
               {dict.expediente.alwaysShared}
             </div>
             {data.criticalFields.map((f) => (

@@ -33,9 +33,9 @@ export function StatusMenu({
         <button
           type="button"
           onClick={() => apply(primaryNext)}
-          className="rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-white"
+          className="rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-bold text-text hover:bg-field"
         >
-          {dict.agenda.status[primaryNext]}
+          {dict.agenda.actions[primaryNext]}
         </button>
       )}
       <button

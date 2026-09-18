@@ -10,7 +10,7 @@ export function SlugField({ dict }: { dict: Dictionary }) {
 
   return (
     <div>
-      <label className="mb-1.5 block text-xs font-bold text-text-secondary" htmlFor="name">
+      <label className="sr-only" htmlFor="name">
         {dict.onboarding.step1.nameLabel}
       </label>
       <input

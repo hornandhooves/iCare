@@ -151,9 +151,19 @@ export default async function AgendaPage({
 
       <div className="flex min-w-0 flex-1 gap-0">
         <div className="min-w-0 flex-1 overflow-y-auto p-6">
+          <div className="mb-1 text-xs font-bold uppercase tracking-wider text-primary-deep">
+            {branch.name}
+          </div>
           <div className="mb-5 flex items-center gap-3">
-            <h1 className="text-2xl font-bold capitalize text-text">{dateLabel}</h1>
-            <div className="flex items-center gap-1">
+            <div>
+              <h1 className="text-2xl font-bold capitalize text-text">{dateLabel}</h1>
+              <p className="text-xs text-text-tertiary">
+                {canViewAll
+                  ? `${staffList.length} ${dict.agenda.staff.toLowerCase()} · ${allRows.length} ${dict.agenda.statAppointments.toLowerCase()}`
+                  : `${allRows.length} ${dict.agenda.statAppointments.toLowerCase()}`}
+              </p>
+            </div>
+            <div className="ml-auto flex items-center gap-1">
               <Link href={dateHref(shiftDate(dateStr, -1))} className="grid h-8 w-8 place-items-center rounded-full hover:bg-field">
                 <ChevronLeft size={16} strokeWidth={2.75} />
               </Link>
@@ -164,15 +174,13 @@ export default async function AgendaPage({
                 <ChevronRight size={16} strokeWidth={2.75} />
               </Link>
             </div>
-            <div className="ml-auto">
-              <NewAppointmentDialog
-                dict={dict}
-                branchId={branch.id}
-                dateStr={dateStr}
-                services={servicesData ?? []}
-                patients={patientsData ?? []}
-              />
-            </div>
+            <NewAppointmentDialog
+              dict={dict}
+              branchId={branch.id}
+              dateStr={dateStr}
+              services={servicesData ?? []}
+              patients={patientsData ?? []}
+            />
           </div>
 
           <div className="flex flex-col gap-2">
@@ -180,7 +188,7 @@ export default async function AgendaPage({
               <Card className="text-center text-sm text-text-tertiary">{dict.clientes.empty}</Card>
             )}
             {rows.map((r) => (
-              <Card key={r.id} className="flex items-center gap-4 py-3.5">
+              <Card key={r.id} className="flex items-center gap-4 border-l-[3px] py-3.5 pl-3.5" style={{ borderLeftColor: colorForStaff(r.staffId, staffIds) }}>
                 <div className="w-16 flex-none text-sm font-bold text-text">
                   {r.startAt.slice(11, 16)}
                 </div>

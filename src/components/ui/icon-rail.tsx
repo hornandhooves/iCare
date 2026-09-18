@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Calendar, Users, LogOut } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
+import { Calendar, Users } from "lucide-react";
+import { SignOutButton } from "./sign-out-button";
 
 interface IconRailProps {
   labels: { agenda: string; clientes: string; signOut: string };
@@ -13,19 +12,11 @@ interface IconRailProps {
 
 export function IconRail({ labels, initials }: IconRailProps) {
   const pathname = usePathname();
-  const router = useRouter();
 
   const items = [
     { href: "/agenda", label: labels.agenda, icon: Calendar },
     { href: "/clientes", label: labels.clientes, icon: Users },
   ];
-
-  async function signOut() {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/login");
-    router.refresh();
-  }
 
   return (
     <nav className="flex w-[76px] flex-none flex-col items-center gap-1 bg-surface py-4 shadow-[1px_0_0_var(--color-hairline)]">
@@ -47,14 +38,10 @@ export function IconRail({ labels, initials }: IconRailProps) {
           );
         })}
       </div>
-      <button
-        type="button"
-        onClick={signOut}
+      <SignOutButton
         title={labels.signOut}
         className="mb-2 flex h-11 w-11 items-center justify-center rounded-full text-text-tertiary hover:bg-field"
-      >
-        <LogOut size={18} strokeWidth={2.75} />
-      </button>
+      />
       <div className="grid h-8 w-8 flex-none place-items-center rounded-full bg-[#E0E1E6] text-[10.5px] font-bold text-[#60646C]">
         {initials}
       </div>

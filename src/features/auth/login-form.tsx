@@ -24,7 +24,9 @@ export function LoginForm({ dict }: { dict: Dictionary }) {
       setError(dict.login.error);
       return;
     }
-    router.push("/agenda");
+    // Root page decides staff (→ agenda) vs patient (→ portal) — the two
+    // share this same sign-in form and Auth account.
+    router.push("/");
     router.refresh();
   }
 

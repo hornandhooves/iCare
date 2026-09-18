@@ -47,7 +47,7 @@ export default async function SignupPage({
           <>
             <h1 className="mb-3 text-5xl font-bold text-text">{dict.signup.owner.heading}</h1>
             <p className="mb-10 text-lg text-text-secondary">{dict.signup.owner.subtext}</p>
-            <SignupForm dict={dict} />
+            <SignupForm copy={dict.signup.owner} redirectTo="/onboarding" intendedRole="owner" />
           </>
         )}
 
@@ -61,7 +61,8 @@ export default async function SignupPage({
         {role === "paciente" && (
           <>
             <h1 className="mb-3 text-5xl font-bold text-text">{dict.signup.patient.heading}</h1>
-            <p className="text-lg text-text-secondary">{dict.signup.patient.body}</p>
+            <p className="mb-10 text-lg text-text-secondary">{dict.signup.patient.subtext}</p>
+            <SignupForm copy={dict.signup.patient} redirectTo="/portal" intendedRole="patient" />
           </>
         )}
 

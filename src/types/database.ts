@@ -193,6 +193,7 @@ export interface Database {
           sex: string | null;
           phone: string | null;
           folio: string | null;
+          user_id: string | null;
           created_at: string;
         };
         Insert: Partial<Database["public"]["Tables"]["patients"]["Row"]> & {

@@ -19,6 +19,10 @@ export default async function OnboardingPage() {
 
   const ctx = await getStaffContext(supabase);
   if (!ctx) {
+    // No staff row and never intended to create a business (a patient who
+    // landed here via /agenda's own redirect, say) — this wizard isn't for
+    // them.
+    if (user.user_metadata?.intended_role !== "owner") redirect("/portal");
     return (
       <div className="flex min-h-screen items-center justify-center bg-canvas px-4">
         <Step1Form dict={dict} locale={locale} />

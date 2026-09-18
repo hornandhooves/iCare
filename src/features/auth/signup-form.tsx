@@ -4,9 +4,28 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-export function SignupForm({ dict }: { dict: Dictionary }) {
+interface SignupCopy {
+  email: string;
+  password: string;
+  submit: string;
+  error: string;
+  rateLimited: string;
+  checkEmail: string;
+}
+
+// Shared by the owner and patient signup tabs on /signup — same Supabase
+// Auth call either way, they only differ in copy and where a fresh session
+// lands (a new business's onboarding vs. the patient portal).
+export function SignupForm({
+  copy,
+  redirectTo,
+  intendedRole,
+}: {
+  copy: SignupCopy;
+  redirectTo: string;
+  intendedRole: "owner" | "patient";
+}) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,20 +40,28 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
     setInfo(null);
 
     const supabase = createClient();
-    const { data, error } = await supabase.auth.signUp({ email, password });
+    // Recorded so a later sign-in (before onboarding finishes, or before the
+    // confirmation email is even clicked) can still tell "no staff row yet
+    // because this is a brand-new owner" apart from "because this is a
+    // patient" — see root page.tsx.
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { intended_role: intendedRole } },
+    });
     setSubmitting(false);
 
     if (error) {
-      setError(error.code === "over_email_send_rate_limit" ? dict.signup.owner.rateLimited : dict.signup.owner.error);
+      setError(error.code === "over_email_send_rate_limit" ? copy.rateLimited : copy.error);
       return;
     }
     if (!data.session) {
       // Project has email confirmation on — no session until the link is
       // clicked, so there's nothing to redirect into yet.
-      setInfo(dict.signup.owner.checkEmail);
+      setInfo(copy.checkEmail);
       return;
     }
-    router.push("/onboarding");
+    router.push(redirectTo);
     router.refresh();
   }
 
@@ -42,7 +69,7 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
     <form onSubmit={onSubmit} className="flex max-w-xl flex-col gap-5">
       <div>
         <label className="mb-1.5 block text-sm font-semibold text-text-secondary" htmlFor="signup-email">
-          {dict.signup.owner.email}
+          {copy.email}
         </label>
         <input
           id="signup-email"
@@ -56,7 +83,7 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
       </div>
       <div>
         <label className="mb-1.5 block text-sm font-semibold text-text-secondary" htmlFor="signup-password">
-          {dict.signup.owner.password}
+          {copy.password}
         </label>
         <input
           id="signup-password"
@@ -72,7 +99,7 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
       {error && <p className="text-sm text-danger">{error}</p>}
       {info && <p className="text-sm text-primary-deep">{info}</p>}
       <Button type="submit" disabled={submitting} className="h-14 text-base">
-        {dict.signup.owner.submit}
+        {copy.submit}
       </Button>
     </form>
   );
